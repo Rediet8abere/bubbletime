@@ -2,7 +2,6 @@
 var buttonCheck;
 var buttonEqn;
 var grid;
-var numValue = '0';
 var strStored = '';
 var operation;
 var answer;
@@ -42,6 +41,7 @@ class Grid {
     this.register = [];
     this.randnum;
     this.oper = ['+', '-', '*'];
+    this.checked = false;
     for(var i = 0; i<this.cells.length; i++) {
       this.cells[i] = new Array(this.y);
     }
@@ -64,6 +64,7 @@ class Grid {
 
 
   clicked() {
+    this.checked = false;
     this.randnum = floor(random(0, this.oper.length));
     for (var column = 0; column < this.x; column ++) {
       for (var row = 0; row < this.y; row++) {
@@ -86,11 +87,15 @@ class Grid {
     if (strStored[strStored.length-1] == operation) {
       strStored = strStored.substring(0, strStored.length - 1);
     }
-    numValue = strStored;
+    console.log("strStored", strStored);
     let regexp = '[-0-10+*0-10]';
-    m = match(numValue, regexp);
+    m = match(strStored, regexp);
     if(m != null) {
-      equation = createP(numValue);
+      if (equation != undefined) {
+        equation.remove();
+      }
+      equation = createP(strStored);
+      console.log("equation", equation);
       equation.position(1060, 250);
     }
     strStored = '';
@@ -116,6 +121,9 @@ class Grid {
     console.log("result, answer", result, answer);
     grid.showRes(result, answer);
     this.register = [];
+    this.stored = [];
+    strStored = '';
+    this.checked = true;
    }
 
    showRes(result, answer) {
@@ -131,7 +139,6 @@ class Grid {
            this.register[i].col = color(0);
          }
        }
-
      }
      inp.value(' ');
    }
@@ -167,8 +174,8 @@ class Cell{
   }
 
   move() {
-    this.x = this.x + random(-0.005, 0.005);
-    this.y = this.y + random(-0.005, 0.005);
+    this.x = this.x + random(-0.001, 0.001);
+    this.y = this.y + random(-0.001, 0.001);
   }
 }
 
@@ -178,13 +185,11 @@ function mousePressed() {
 
 function checkRes() {
   grid.operate(operation);
-  if (equation != undefined && answer != undefined) {
-    equation.remove();
-  }
 }
 
 function eqn() {
     grid.showEqn();
+
 }
 
 function myInputEvent() {
