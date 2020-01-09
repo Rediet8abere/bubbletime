@@ -8,11 +8,13 @@ var strStored = '';
 var operation;
 var answer;
 var result = 0;
+var score = 0;
 var equation;
 let inp;
 let m;
 var timer;
 var count;
+var showScore;
 
 
 function setup () {
@@ -30,16 +32,19 @@ function setup () {
   buttonEqn.mousePressed(eqn);
   buttonReset = createButton('Reset');
   buttonReset.position(1060, 500);
-  buttonReset.mousePressed(reset);
+  buttonReset.mousePressed(resetGrid);
+  grid.reset();
 }
 
 
 function draw () {
   background('#87F5FB');
   grid.draw();
+
 }
+
 class Grid {
-  constructor (r, p) {
+  constructor (r) {
     this.r = r;
     this.x = height / r;
     this.y = width / r;
@@ -62,9 +67,6 @@ class Grid {
   draw () {
     for (var column = 0; column < this.x; column ++) {
       for (var row = 0; row < this.y; row++) {
-        if (resetBull == true) {
-          this.cells[column][row].clicked = false;
-        }
        this.cells[column][row].draw();
        this.cells[column][row].move();
       }
@@ -84,22 +86,6 @@ class Grid {
       }
     }
   }
-
-  reset () {
-   for (var column = 0; column < this.numberOfColumns; column ++) {
-     for (var row = 0; row < this.numberOfRows; row++) {
-      var value = false;
-      if(floor(random(2)) == 1) {
-        value = true;
-      } else {
-        value = false;
-      }
-
-      this.cells[column][row].setIsAlive(value);
-     }
-   }
- }
-
 
   showEqn() {
     for (var i = 0; i <= this.stored.length-1; i++ ) {
@@ -147,15 +133,17 @@ class Grid {
    }
 
    showRes(result, answer) {
+
      if (answer == undefined) {
        console.log(prompt);
-       // if (prompt != undefined) {
-       //
-       // }
-       // prompt.remove();
        prompt = createP('Please input answer');
      }  else {
        if (result == answer) {
+         score += 1;
+         if (showScore != undefined) {
+           showScore.remove();
+         }
+         showScore = createP(score);
          for (var i = 0; i < this.register.length; i++) {
            this.register[i].col = color(50, 55, 100);
          }
@@ -167,6 +155,19 @@ class Grid {
      }
      inp.value(' ');
    }
+
+  reset() {
+    for (var column = 0; column < this.x; column ++) {
+      for (var row = 0; row < this.y; row++) {
+        console.log("In grid reset");
+       this.cells[column][row].clicked = false;
+       this.cells[column][row].col = color('#F86624');
+       this.cells[column][row].draw();
+       this.cells[column][row].move();
+
+      }
+    }
+  }
 }
 
 class Cell{
@@ -211,22 +212,22 @@ function checkRes() {
 }
 
 function eqn() {
-    grid.showEqn();
+  grid.showEqn();
 }
 
 function myInputEvent() {
   answer = this.value();
 }
 
-function reset() {
+function resetGrid() {
   console.log("IN RESET");
   resetBull = true;
-  grid.draw();
+  grid.reset();
+  score = 0;
 
 }
 
 var countDownDate = new Date().getTime() + 5000;
-
 var x = setInterval(function() {
 
   var now = new Date().getTime();
@@ -243,5 +244,8 @@ var x = setInterval(function() {
       timer.remove();
     }
     timer = createP(count);
+  }
+  if (hours == 0 && minutes == 0 && seconds == 0) {
+    createP("TIME OUT");
   }
 }, 1000);
