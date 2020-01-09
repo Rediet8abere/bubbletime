@@ -1,6 +1,8 @@
 
 var buttonCheck;
 var buttonEqn;
+var buttonReset;
+var resetBull = false;
 var grid;
 var strStored = '';
 var operation;
@@ -26,12 +28,14 @@ function setup () {
   buttonEqn = createButton('Equation');
   buttonEqn.position(1060, 50);
   buttonEqn.mousePressed(eqn);
-  // myTimer();
+  buttonReset = createButton('Reset');
+  buttonReset.position(1060, 500);
+  buttonReset.mousePressed(reset);
 }
 
 
 function draw () {
-  background(250);
+  background('#87F5FB');
   grid.draw();
 }
 class Grid {
@@ -58,12 +62,14 @@ class Grid {
   draw () {
     for (var column = 0; column < this.x; column ++) {
       for (var row = 0; row < this.y; row++) {
+        if (resetBull == true) {
+          this.cells[column][row].clicked = false;
+        }
        this.cells[column][row].draw();
        this.cells[column][row].move();
       }
     }
   }
-
 
   clicked() {
     this.randnum = floor(random(0, this.oper.length));
@@ -78,6 +84,22 @@ class Grid {
       }
     }
   }
+
+  reset () {
+   for (var column = 0; column < this.numberOfColumns; column ++) {
+     for (var row = 0; row < this.numberOfRows; row++) {
+      var value = false;
+      if(floor(random(2)) == 1) {
+        value = true;
+      } else {
+        value = false;
+      }
+
+      this.cells[column][row].setIsAlive(value);
+     }
+   }
+ }
+
 
   showEqn() {
     for (var i = 0; i <= this.stored.length-1; i++ ) {
@@ -101,6 +123,9 @@ class Grid {
 
   operate(operation) {
     for (var i = 0; i < this.stored.length; i++) {
+      if (i == 0) {
+        result = 0;
+      }
       if (operation == '+') {
           result += this.stored[i];
       } else if (operation == '*') {
@@ -115,7 +140,6 @@ class Grid {
         }
       }
     }
-    console.log("result, answer", result, answer);
     grid.showRes(result, answer);
     this.register = [];
     this.stored = [];
@@ -125,7 +149,11 @@ class Grid {
    showRes(result, answer) {
      if (answer == undefined) {
        console.log(prompt);
-       prompt = createDiv('Please input answer');
+       // if (prompt != undefined) {
+       //
+       // }
+       // prompt.remove();
+       prompt = createP('Please input answer');
      }  else {
        if (result == answer) {
          for (var i = 0; i < this.register.length; i++) {
@@ -146,7 +174,7 @@ class Cell{
     this.x = x;
     this.y = y;
     this.r = r;
-    this.col = color(55, 1, 200);
+    this.col = color('#F86624');
     this.num = floor(random(1, 10));
     this.clicked = false;
   }
@@ -156,11 +184,11 @@ class Cell{
     noStroke();
     ellipse(this.x * this.r + 20, this.y * this.r + 20, this.r - 1, this.r - 1);
 
-    if (this.clicked) {
+    if (this.clicked == true) {
+      // changes the color and shows random num when clicked.
       fill('rgb(0,255,0)');
       text(this.num, this.x * this.r + 10, this.y * this.r + 18);
-
-    }
+      }
   }
 
   clickedCell() {
@@ -184,70 +212,36 @@ function checkRes() {
 
 function eqn() {
     grid.showEqn();
-
 }
 
 function myInputEvent() {
   answer = this.value();
 }
 
-// var myVar = setInterval(myTimer, 1000);
+function reset() {
+  console.log("IN RESET");
+  resetBull = true;
+  grid.draw();
 
-// function myTimer() {
-//   var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
-//   var d = new Date().getTime();
-//   var distance = countDownDate - d;
-//   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-//   days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-//   // setting_time = d.toLocaleTimeString();
-//   if (timer != undefined) {
-//     timer.remove();
-//   }
-//   timer = createP(distance);
-//   if (distance < 0) {
-//     clearInterval(x);
-//     document.getElementById("demo").innerHTML = "EXPIRED";
-//     }
-//   }, 1000);
-//   console.log("In timer");
-//   console.log(d);
-// }
+}
 
-// Set the date we're counting down to
-var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
-console.log("countDownDate", countDownDate);
+var countDownDate = new Date().getTime() + 5000;
 
-// Update the count down every 1 second
 var x = setInterval(function() {
 
-  // Get today's date and time
   var now = new Date().getTime();
-  console.log("now", now);
 
-  // Find the distance between now and the count down date
   var distance = countDownDate - now;
-  console.log("distance", distance);
 
-  // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
   var count = hours +':'+ minutes +':'+ seconds
+  if (hours >= 0 | minutes >= 0 | seconds >= 0) {
     if (timer != undefined) {
       timer.remove();
     }
     timer = createP(count);
-  // Display the result in the element with id="demo"
-  // document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  // + minutes + "m " + seconds + "s ";
-
-  // If the count down is finished, write some text
-  // if (distance < 0) {
-  //   clearInterval(x);
-  //   document.getElementById("demo").innerHTML = "EXPIRED";
-  // }
+  }
 }, 1000);
