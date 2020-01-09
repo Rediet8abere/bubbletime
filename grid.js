@@ -33,7 +33,10 @@ function setup () {
   buttonReset = createButton('Reset');
   buttonReset.position(1060, 500);
   buttonReset.mousePressed(resetGrid);
-  grid.reset();
+  // start = createButton('start');
+  // start.position(1060, 700);
+  // start.mousePressed(restart);
+  // grid.reset();
 }
 
 
@@ -159,7 +162,7 @@ class Grid {
   reset() {
     for (var column = 0; column < this.x; column ++) {
       for (var row = 0; row < this.y; row++) {
-        console.log("In grid reset");
+       console.log("In grid reset");
        this.cells[column][row].clicked = false;
        this.cells[column][row].col = color('#F86624');
        this.cells[column][row].draw();
@@ -224,16 +227,14 @@ function resetGrid() {
   resetBull = true;
   grid.reset();
   score = 0;
-
+  // x;
 }
 
-var countDownDate = new Date().getTime() + 5000;
+
+var countDownDate = new Date().getTime() + 10000;
 var x = setInterval(function() {
-
   var now = new Date().getTime();
-
   var distance = countDownDate - now;
-
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -247,5 +248,6 @@ var x = setInterval(function() {
   }
   if (hours == 0 && minutes == 0 && seconds == 0) {
     createP("TIME OUT");
+    resetGrid();
   }
 }, 1000);
