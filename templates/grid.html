@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <!-- Custom css -->
+  <link rel="stylesheet" type = "text/css" href="../static/css/grid.css">
+  <!-- P5 js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+  <!-- Custom Js -->
+  <script src="../static/js/grid.js"></script>
+  <!-- Custom css -->
+  <link rel="stylesheet" href="../static/css/grid.css">
+{% endblock %}
+
+{% block content %}
+<body>
+  <h1>Bubble Time</h1>
+  <button type="button" class="btn btn-info" value="back"
+         onclick="window.location.href = 'index.html'" >Back</button>
+</body>
+
+{% endblock %}

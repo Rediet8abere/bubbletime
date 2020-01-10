@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<!-- P5 js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+  <script src="../static/js/sketch.js"></script>
+  <!-- Custom css -->
+  <link rel="stylesheet" href="../static/css/styles.css">
+{% endblock %}
+
+{% block content %}
+<body>
+  <img src="../static/img/bubbletimepink.jpg" alt="bubbletime" class="bubbletime">
+  <div id="canvbtn" style="position: relative;"> </div>
+  <script src="../static/js/sketch.js" type="text/javascript">
+    document.getElementById("canvbtn").bgcolor="#43BCCD";
+  </script>
+</body>
+
+{% endblock %}
