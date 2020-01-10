@@ -93,6 +93,7 @@ function setup() {
   button.style('background-color', '#EA3546');
   button.style('border-radius', '2px');
   button.style('border', '2px solid #4CAF50');
+  document.getElementById("login").style.left = "100px";
   // myCanvas.parent('sketch01');
   for (var i = 0; i < 500; i++) {
     bubbles[i] = new Bubble()

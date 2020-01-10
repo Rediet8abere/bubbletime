@@ -8,13 +8,13 @@
         <div class="card-body">
           <h5 class="card-title text-center">Sign In</h5>
                     <div class="content-section">
-                        <form  method='POST' action=''>
+                        <form  class="form-signin" method='POST' action=''>
                             {{ form.hidden_tag() }}
                             <fieldset class="form-group">
                             <legend class="border-bottom mb-4 ">Log In</legend>
-                            <div class="form-group ">
+                            <div class="form-label-group">
                                 <i class="fas fa-envelope-square"></i>
-                                {{ form.email.label(class ='form-control-label') }}
+                                <!-- {{ form.email.label(class ='form-control-label') }} -->
                                 {% if form.email.errors %}
                                     {{ form.email(class ='form-control form-control-lg is-invalid ') }}
                                     <div class="invalid-feedback">
@@ -26,9 +26,9 @@
                                     {{ form.email(class ='form-control form-control-lg') }}
                                 {% endif %}
                             </div>
-                            <div class="form-group ">
+                            <div class="form-label-group">
                                 <i class="fas fa-key"></i>
-                                {{ form.password.label(class ='form-control-label') }}
+                                <!-- {{ form.password.label(class ='form-control-label') }} -->
                                 {% if form.password.errors %}
                                     {{ form.password(class ='form-control form-control-lg is-invalid ') }}
                                     <div class="invalid-feedback">
@@ -45,12 +45,13 @@
                                 {{ form.remember.label(class="form-check-label") }}
                             </div>
                             <!-- BUTTON -->
-                            <div class="form-group ">
-                                {{ form.submit(class = "btn btn-outline-info") }}
+                            <div class="btn btn-lg btn-primary btn-block text-uppercase">
+                                {{ form.submit(class = "btn btn-lg btn-primary btn-block text-uppercase") }}
                             </div>
                             <small class ="text-muted ml-2">
                                 <a href="#"> Forgot password? </a>
                             </small>
+                          </fieldset>
                         </form>
               </div>
           </div>
