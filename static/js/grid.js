@@ -32,27 +32,26 @@ function setup () {
   buttonCheck = createButton('check');
   buttonCheck.position(1118, 300);
   buttonCheck.mousePressed(play.checkRes);
-  buttonCheck.style('background-color', '#EA3546');
+  buttonCheck.style('background-color', '#F18F01');
 
 
   buttonEqn = createButton('Equation');
   buttonEqn.position(980, 140);
   buttonEqn.mousePressed(play.eqn);
-  buttonEqn.style('background-color', '#EA3546');
+  buttonEqn.style('background-color', '#EFCB68');
   buttonEqn.style('padding', '14px 40px');
   buttonEqn.style('border-radius', '12px');
 
   start = createButton('start');
   start.position(1060, 500);
   start.mousePressed(play.startPlaying);
-  start.style('background-color', '#F4ACB7');
+  start.style('background-color', '#04F06A');
   start.style('border-radius', '50%');
   start.style('padding', '32px 16px');
   start.style('font-size', '24px');
 
   grid.reset();
 }
-
 
 function draw () {
   background('#87F5FB');

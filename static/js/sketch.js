@@ -42,7 +42,6 @@ var bubbleman = {
 
    }
 }
-
 let bubbles = [];
 // var intersecting = true;
 
@@ -90,17 +89,15 @@ function setup() {
   // by default this sets position relative to window...
   button.position(260, 270);
   button.mousePressed(grid_page);
-  button.style('background-color', '#EA3546');
+  button.style('background-color', '#99C24D');
   button.style('border-radius', '2px');
-  button.style('border', '2px solid #4CAF50');
-  document.getElementById("login").style.left = "100px";
+  button.style('border', '2px solid #99C24D');
   // myCanvas.parent('sketch01');
   for (var i = 0; i < 500; i++) {
     bubbles[i] = new Bubble()
     bubbles.push(bubbles[i]);
   }
-
-  // img = createImg('../img/bubbletimepink.jpg', 'bubbletimepink')
+  // img = createImg('../assets/bubbletimepink.jpg', 'bubbletimepink')
   // img.position(700, 70);
 }
 
@@ -109,14 +106,18 @@ function draw() {
   bubbleman.display(200, 100);
 
   for( var i = 0; i < bubbles.length; i++) {
-    bubbles[i].intersect()
-    if (intersecting == false) {
-      bubbles[i].move();
-      bubbles[i].show();
-    }
+    bubbles[i].move();
+    bubbles[i].show();
   }
 }
 
+function grid_page() {
+  window.location.href = "/grid";
+}
+
+
+// img = createImg('../img/bubbletimepink.jpg', 'bubbletimepink')
+// img.position(700, 70);
 function grid_page() {
   window.location.href = "/grid";
 }
