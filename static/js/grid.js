@@ -32,7 +32,7 @@ function setup () {
   buttonCheck = createButton('check');
   buttonCheck.position(1118, 300);
   buttonCheck.mousePressed(play.checkRes);
-  buttonCheck.style('background-color', '#F18F01');
+  buttonCheck.style('background-color', '#9CE37D');
 
 
   buttonEqn = createButton('Equation');
@@ -261,7 +261,7 @@ class Play {
   }
 
    setTimer() {
-    var countDownDate = new Date().getTime() + 15000;
+    var countDownDate = new Date().getTime() + 30000;
     var x = setInterval(function() {
       var now = new Date().getTime();
       var distance = countDownDate - now;
