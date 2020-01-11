@@ -32,13 +32,14 @@ function setup () {
   buttonCheck = createButton('check');
   buttonCheck.position(1118, 300);
   buttonCheck.mousePressed(play.checkRes);
-  buttonCheck.style('background-color', '#9CE37D');
+  buttonCheck.style('background-color', '#D74E09');
+  buttonCheck.style('padding', '2px 20px');
 
 
   buttonEqn = createButton('Equation');
   buttonEqn.position(980, 140);
   buttonEqn.mousePressed(play.eqn);
-  buttonEqn.style('background-color', '#EFCB68');
+  buttonEqn.style('background-color', '#FFBC42');
   buttonEqn.style('padding', '14px 40px');
   buttonEqn.style('border-radius', '12px');
 
@@ -119,6 +120,7 @@ class Grid {
     if(m != null) {
       play.removingVal(equation);
       equation = createP(strStored);
+      equation.style('font-size', '150%');
       equation.position(1060, 250);
     }
     strStored = '';
@@ -274,6 +276,10 @@ class Play {
       if (hours >= 0 && minutes >= 0 && seconds >= 0) {
         play.removingVal(timer);
         timer = createP(count);
+        timer.style('font-size', '150%');
+        // timer.style('padding-left', '558px');
+        // timer.style('padding-top', '25px');
+        // timer.style('position', 'relative');
       }
       if (hours == 0 && minutes == 0 && (seconds == 0 | seconds == 1)) {
         play.resetGrid();
@@ -307,4 +313,8 @@ function mousePressed() {
   if (playing == true) {
     grid.clicked();
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }

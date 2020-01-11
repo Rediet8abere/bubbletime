@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
+{% block header %}
+  <!--Custom js -->
+  <script src="../static/js/bubbleman.js"></script>
+  <script src="../static/js/bubble.js"></script>
+  <!-- Custom css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 <body>
-  <div class="container">
-    <div class="row">
+  <div class="container" style="position:relative;">
+    <canvas id="surface" width="200" height="300"></canvas>
+    <div class="row" style="position:absolute; width:25px !important; display:block;z-index:9999">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
+        <div class="card card-signin my-5" style= "position:absolute; left:500px; top:40%">
+          <div class="card-body" >
             <h5 class="card-title text-center">Sign In</h5>
             <form class="form-signin" method='POST' action=''>
                 {{ form.hidden_tag() }}
