@@ -1,4 +1,4 @@
-
+""" This draws the bubble grid where we can do a simple maths equation"""
 var buttonCheck;
 var buttonEqn;
 var buttonReset;
@@ -22,34 +22,45 @@ var timeout;
 
 
 function setup () {
-  canvas = createCanvas(400, 400);
-  canvas.position(500, 150);
+  canvas = createCanvas(500, 500);
+  canvas.position(400, 80);
   grid = new Grid(50);
   play = new Play();
   inp = createInput('');
-  inp.position(950, 300);
+  inp.position(1000, 300);
   inp.input(myInputEvent);
   buttonCheck = createButton('check');
-  buttonCheck.position(1118, 300);
+  buttonCheck.position(1150, 300);
   buttonCheck.mousePressed(play.checkRes);
   buttonCheck.style('background-color', '#D74E09');
   buttonCheck.style('padding', '2px 20px');
 
 
   buttonEqn = createButton('Equation');
-  buttonEqn.position(980, 140);
+  buttonEqn.position(1040, 140);
   buttonEqn.mousePressed(play.eqn);
   buttonEqn.style('background-color', '#FFBC42');
   buttonEqn.style('padding', '14px 40px');
   buttonEqn.style('border-radius', '12px');
 
   start = createButton('start');
-  start.position(1060, 500);
+  start.position(1100, 500);
   start.mousePressed(play.startPlaying);
   start.style('background-color', '#04F06A');
   start.style('border-radius', '50%');
   start.style('padding', '32px 16px');
   start.style('font-size', '24px');
+
+
+  btnscore = createButton('Score');
+  btnscore.position(80, 220);
+  btnscore.style('background-color', '#04F06A');
+  btnscore.style('border-radius', '4px');
+  btnscore.style('padding', '32px 16px');
+  btnscore.style('font-size', '24px');
+  btnscore.style('padding-top', '0px');
+  btnscore.style('padding-bottom', '100px');
+
 
   grid.reset();
 }
@@ -158,10 +169,9 @@ class Grid {
        if (result == answer) {
          score += 1;
          play.removingVal(showScore);
-         text(score, 10, 50);
-
-         text('Font Size 16', 10, 90);
          showScore = createP(score);
+         showScore.position(120, 280);
+         showScore.style('font-size', '24px');
          for (var i = 0; i < this.register.length; i++) {
            this.register[i].col = color(50, 55, 100);
          }
@@ -177,11 +187,8 @@ class Grid {
   reset() {
     for (var column = 0; column < this.x; column ++) {
       for (var row = 0; row < this.y; row++) {
-       // console.log("In grid reset");
        this.cells[column][row].clicked = false;
        this.cells[column][row].col = color('#F86624');
-       // this.cells[column][row].draw();
-       // this.cells[column][row].move();
       }
     }
   }
@@ -248,7 +255,9 @@ class Play {
   }
 
    startPlaying() {
-    score = 0;
+     if (playing == false) {
+       score = 0;
+     }
     console.log("In start");
     playing = true;
     play.setTimer();
@@ -285,8 +294,10 @@ class Play {
         play.resetGrid();
         playing = false;
         play.winOrlose();
-        timeout = createP("TIME OUT Click on Start to play again");
-        timeout.position(550, 100);
+        timeout = createP("TIME OUT CLICK START TO PLAY AGAIN");
+        timeout.style('font-size', '150%');
+        timeout.style('font-weight', 'bold');
+        timeout.position(450, 100);
       }
     }, 1000);
   }
