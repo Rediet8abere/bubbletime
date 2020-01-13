@@ -1,4 +1,3 @@
-""" This draws the bubble grid where we can do a simple maths equation"""
 var buttonCheck;
 var buttonEqn;
 var buttonReset;
